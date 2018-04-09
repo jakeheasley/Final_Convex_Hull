@@ -52,7 +52,7 @@ def main():
         x, y = line.split(",")
         lst.append(Point(int(x), int(y)))
 
-    # Ensures that there won't be duplicates hull
+    # Ensures that there won't be duplicates in hull
     hull = list(set(solve_hull(lst)))
 
     hull.sort(key=lambda p: p.x, reverse=False)
