@@ -1,40 +1,57 @@
 from Point import Point
 
 
-def solve_hull(point_arr):
+# Function that solves the convex hull
+def solve_hull(point_lst):
     convex_hull = []
-    for p1 in point_arr:
-        for p2 in point_arr[0:point_arr.index(p1)] + point_arr[point_arr.index(p1)+1:]:
+    for p1 in point_lst:
 
-            if check_points(p1, p2, point_arr):
+        # Ensures that p1 won't compare with itself
+        for p2 in point_lst[0:point_lst.index(p1)] + point_lst[point_lst.index(p1)+1:]:
+
+            if check_points(p1, p2, point_lst):
                 convex_hull.append(p1)
                 convex_hull.append(p2)
 
     return convex_hull
 
 
-def check_points(p1, p2, test_arr):
-    test_arr = list(test_arr)
-    test_arr.remove(p1)
-    test_arr.remove(p2)
+# Function that takes two points and then compares a line created
+# by the points with the rest of the Point list. Returns true if
+# all points are on one side of line
+def check_points(p1, p2, test_lst):
 
-    p3 = test_arr[0]
+    # Ensures that removing elements from test_lst won't remove
+    # elements from point_lst in solve_hull
+    test_lst = list(test_lst)
+
+    # Ensures that p1 and p2 won't compare with themselves
+    test_lst.remove(p1)
+    test_lst.remove(p2)
+
+    # Initial test
+    p3 = test_lst[0]
+
+    # This function will return a negative number if on one side of line
+    # and a positive on the other side
     side = (p3.x-p1.x)*(p2.y-p1.y)-(p3.y-p1.y)*(p2.x-p1.x)
 
-    for p3 in test_arr[1:]:
+    for p3 in test_lst[1:]:
         new_side = (p3.x-p1.x)*(p2.y-p1.y)-(p3.y-p1.y)*(p2.x-p1.x)
         if new_side*side < 0:
             return False
     return True
 
 
-arr = []
+lst = []
 lines = open("Points.txt").read().splitlines()
 for line in lines:
     x, y = line.split(",")
-    arr.append(Point(int(x), int(y)))
+    lst.append(Point(int(x), int(y)))
 
-hull = list(set(solve_hull(arr)))
+# Ensures that there won't be duplicates hull
+hull = list(set(solve_hull(lst)))
+
 hull.sort(key=lambda p: p.x, reverse=False)
 for point in hull:
     point.print_point()
