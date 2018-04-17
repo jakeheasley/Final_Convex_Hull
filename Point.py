@@ -9,4 +9,7 @@ class Point:
 
     # Helper function that prints the x,y coordinates of a point
     def print_point(self):
-        print "%d, %d" % (self.x, self.y)
+        print "%d,%d" % (self.x, self.y)
+
+    def get_point(self):
+        return "%d,%d" % (self.x, self.y)

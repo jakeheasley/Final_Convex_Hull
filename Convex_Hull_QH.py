@@ -22,6 +22,7 @@ def get_min_max(point_lst):
 
     return min_point, max_point
 
+
 # Function that compares a line created by two points with the
 # the rest of the Point list. It then returns a list that contains
 # all the points that lie on the left side of this line.
@@ -40,6 +41,7 @@ def get_left_points(p1, p2, point_lst):
 
     return left_lst
 
+
 # Function that determines and returns the distance from a point to
 # a line created by two other points.
 def distance(p1, p2, point):
@@ -48,6 +50,7 @@ def distance(p1, p2, point):
 
     result = nominator / denominator
     return result
+
 
 # Function that determines and returns the point farthest away
 # from a line created by two other points.
@@ -65,6 +68,7 @@ def get_max_point_from_line(p1, p2, point_lst):
                 max_point = point
 
     return max_point
+
 
 # Function that solves and returns the quickhull
 def solve_quickhull(point_lst):
