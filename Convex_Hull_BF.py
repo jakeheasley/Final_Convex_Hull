@@ -13,7 +13,7 @@ def solve_hull(point_lst):
                 convex_hull.append(p1)
                 convex_hull.append(p2)
 
-    return convex_hull
+    return list(set(convex_hull))
 
 
 # Function that takes two points and then compares a line created
@@ -49,11 +49,15 @@ def main():
     # Coordinates are designated with commas
     lines = open("Points.txt").read().splitlines()
     for line in lines:
+
+        # If there is a blank line at end of Points.txt
+        if not line:
+            continue
         x, y = line.split(",")
         lst.append(Point(int(x), int(y)))
 
     # Ensures that there won't be duplicates in hull
-    hull = list(set(solve_hull(lst)))
+    hull = solve_hull(lst)
 
     hull.sort(key=lambda p: p.x, reverse=False)
     for point in hull:

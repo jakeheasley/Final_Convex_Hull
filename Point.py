@@ -13,3 +13,6 @@ class Point:
 
     def get_point(self):
         return "%d,%d" % (self.x, self.y)
+
+    def __getitem__(self, item):
+        return item

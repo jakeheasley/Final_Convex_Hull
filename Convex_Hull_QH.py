@@ -96,6 +96,7 @@ def quickhull(lst_min, lst_max, point_lst):
 
     return hullpoints
 
+
 def main():
     lst = []
 
@@ -103,6 +104,9 @@ def main():
     # Coordinates are designated with commas
     lines = open("Points.txt").read().splitlines()
     for line in lines:
+        # If there is a blank line at end of Points.txt
+        if not line:
+            continue
         x, y = line.split(",")
         lst.append(Point(int(x), int(y)))
 
@@ -112,6 +116,7 @@ def main():
     hull.sort(key=lambda p: p.x, reverse=False)
     for point in hull:
         point.print_point()
+
 
 if __name__ == "__main__":
     main()
