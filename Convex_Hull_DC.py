@@ -4,6 +4,7 @@ from Point import Point
 from Convex_Hull_BF import solve_hull
 import math
 
+
 def clockwiseangle_and_distance(point):
     # Vector between point and the origin: v = p - o
     vector = Point(point.x-center.x, point.y-center.y)
@@ -46,10 +47,10 @@ def solve_hull_dc(point_list):
     length = len(point_list)
 
     # Return the convex hull when length is <= 5
-    # bruteforce method is fast enough with fewer points to make
+    # brute force method is fast enough with fewer points to make
     # the speed difference negligible
-    if length <= 5:
-        return solve_hull(point_list)
+    if length <= 3:
+        return point_list
 
     # Recursively breaking down point_list
     left_hull = solve_hull_dc(point_list[:length/2])
