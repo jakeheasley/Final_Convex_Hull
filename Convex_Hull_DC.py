@@ -3,31 +3,6 @@ Credit to MSeifert on Stackoverflow and GeeksforGeeks.com for elements of the al
 from Point import Point
 from Convex_Hull_BF import solve_hull
 import math
-import functools
-
-
-def quad(point):
-    if point.x >= 0 and point.y >=0:
-        return 1
-    elif point.x <= 0 and point.y >= 0:
-        return 2
-    elif point.x <= 0 and point.y <= 0:
-        return 3
-    else:
-        return 4
-
-
-def compare(a, b):
-    p1 = Point(a.x-center.x, a.y-center.y)
-    p2 = Point(b.x-center.x, b.y-center.y)
-
-    one = quad(p1)
-    two = quad(p2)
-
-    if one != two:
-        return one < two
-    return a.y*b.x < b.y*a.x
-
 
 def clockwiseangle_and_distance(point):
     # Vector between point and the origin: v = p - o
@@ -85,17 +60,6 @@ def solve_hull_dc(point_list):
 
 
 def merge(left_hull, right_hull):
-    print "\nMERGE\n\n"
-    print"LEFT HULL UNSORTED"
-    for point in left_hull:
-        point.print_point()
-    print""
-
-    print "RIGHT HULL UNSORTED"
-    for point in right_hull:
-        point.print_point()
-    print""
-
     # Global variables that are used for sorting the lists
     global refvec
     global center
@@ -127,46 +91,22 @@ def merge(left_hull, right_hull):
     for r in right_hull:
         if r.x < right_hull[init_r].x:
             init_r = right_hull.index(r)
-    print "LEFT RIGHT"
-    left_hull[init_l].print_point()
-    right_hull[init_r].print_point()
-    print ""
 
     # Holder variables that maintain the original init_l and r
     og_l = init_l
     og_r = init_r
 
-    print "LEFT HULL SORTED"
-    for point in left_hull:
-        point.print_point()
-    print ""
-    print "RIGHT HULL SORTED"
-    for point in right_hull:
-        point.print_point()
-
-
-    print ""
-    print "UPPER"
     # finding upper tangent points
     finish = False
     while not finish:
         finish = True
 
-        print "LEFT"
-        left_hull[(init_l + 1) % len_l].print_point()
-        print orientation(left_hull[init_l], right_hull[init_r], left_hull[(init_l + 1) % len_l])
         # Upper left tangent point
         while orientation(left_hull[init_l], right_hull[init_r], left_hull[(init_l+1) % len_l]) <= 0:
-
-            left_hull[(init_l+1) % len_l].print_point()
-            print orientation(left_hull[init_l], right_hull[init_r], left_hull[(init_l+1) % len_l])
             init_l = (init_l+1) % len_l
 
         # Upper right tangent point
         while orientation(right_hull[init_r], left_hull[init_l], right_hull[(len_r + init_r - 1) % len_r]) >= 0:
-            print "RIGHT"
-            right_hull[(init_r + 1) % len_r].print_point()
-            print orientation(right_hull[init_r], left_hull[init_l], right_hull[(len_r + init_r - 1) % len_r])
             init_r = (init_r-1) % len_r
             finish = False
 
@@ -177,8 +117,6 @@ def merge(left_hull, right_hull):
     init_l = og_l
     init_r = og_r
 
-    print ""
-    print "LOWER"
     # finding lower tangent points
     finish = False
     while not finish:
@@ -186,30 +124,16 @@ def merge(left_hull, right_hull):
 
         # Finding lower tangent point for right_hull
         while orientation(left_hull[init_l], right_hull[init_r], right_hull[(init_r + 1) % len_r]) >= 0:
-            print "RIGHT"
-            right_hull[(init_r + 1) % len_r].print_point()
-            print orientation(left_hull[init_l], right_hull[init_r], left_hull[(init_l + 1) % len_l])
             init_r = (len_r + init_r+1) % len_r
 
         # Finding lower tangent point for left_hull
         while orientation(right_hull[init_r], left_hull[init_l], left_hull[(len_l + init_l - 1) % len_l]) <= 0:
-            print "LEFT"
-            left_hull[(len_l + init_l - 1) % len_l].print_point()
-            print orientation(right_hull[init_r], left_hull[init_l], left_hull[(len_l + init_l - 1) % len_l])
             init_l = (len_l + init_l - 1) % len_l
             finish = False
 
     # Setting left and right lower tangent line points
     lower_l = init_l
     lower_r = init_r
-
-    print "upper"
-    left_hull[upper_l].print_point()
-    right_hull[upper_r].print_point()
-
-    print "lower"
-    left_hull[lower_l].print_point()
-    right_hull[lower_r].print_point()
 
     # Initialize the hull
     hull = []
@@ -229,10 +153,6 @@ def merge(left_hull, right_hull):
         point = (point + 1) % len_r
         hull.append(right_hull[point])
 
-    print ""
-    print "HULL"
-    for point in hull:
-        point.print_point()
     return hull
 
 
