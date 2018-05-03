@@ -1,4 +1,4 @@
-"""Generates a given number of randomized points for testing"""
+"""Object that generates a given number of random points"""
 from Point import Point
 import random
 
@@ -10,6 +10,8 @@ class PointGenerator:
     def __init__(self, num_points):
         self.num_points = num_points
 
+    # Generates num_points random points within a plane
+    # of num_points^2 x num_points^2
     def gen_points(self):
         filename = 'Points.txt'
         point_range = pow(self.num_points,2)
@@ -26,6 +28,7 @@ class PointGenerator:
             f.write(point.get_point())
             f.write("\n")
 
+    # Returns a list of points
     def get_points(self):
         lst = []
 
@@ -41,6 +44,7 @@ class PointGenerator:
             lst.append(Point(int(x), int(y)))
         return lst
 
+    # Sets new number of points
     def set_num_points(self, points):
         self.num_points = points
 

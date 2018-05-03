@@ -11,8 +11,10 @@ class Point:
     def print_point(self):
         print "%d,%d" % (self.x, self.y)
 
+    # Helper function that returns string of point
     def get_point(self):
         return "%d,%d" % (self.x, self.y)
 
+    # Function that returns the point
     def __getitem__(self, item):
         return item

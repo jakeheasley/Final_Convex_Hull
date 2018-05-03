@@ -1,7 +1,6 @@
 """ Solves the convex hull with divide and conquer methodology
 Credit to MSeifert on Stackoverflow and GeeksforGeeks.com for elements of the algorithm"""
 from Point import Point
-from Convex_Hull_BF import solve_hull
 import math
 
 
@@ -12,7 +11,7 @@ def clockwiseangle_and_distance(point):
     # Length of vector: ||v||
     lenvector = math.hypot(vector.x, vector.y)
 
-    # If length is zero there is no angle
+    # Checking if length is zero
     if lenvector == 0:
         return -math.pi, 0
 
@@ -43,6 +42,8 @@ def orientation(p1, p2, p3):
         return -1
 
 
+# Function that recursively divides the hull
+# and then sends the hulls to the merge function
 def solve_hull_dc(point_list):
     length = len(point_list)
 
@@ -60,6 +61,7 @@ def solve_hull_dc(point_list):
     return merge(left_hull, right_hull)
 
 
+# Merges two hulls into one
 def merge(left_hull, right_hull):
     # Global variables that are used for sorting the lists
     global refvec
@@ -115,6 +117,7 @@ def merge(left_hull, right_hull):
     upper_l = init_l
     upper_r = init_r
 
+    # resets init_l and _r
     init_l = og_l
     init_r = og_r
 

@@ -1,5 +1,6 @@
 from Point import Point
 
+
 # Function that finds the minimum and maximum x points in a list.
 def get_min_max(point_lst):
     # Ensures that min_x can always be updated to
@@ -79,6 +80,7 @@ def solve_quickhull(point_lst):
     convex_hull = convex_hull + quickhull(lst_max, lst_min, point_lst)
 
     return convex_hull
+
 
 def quickhull(lst_min, lst_max, point_lst):
 
